@@ -25,18 +25,20 @@ def results():
     url = 'http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=' + api_key + '&q=' + movie + '&page_limit=1'
     json_obj = urllib2.urlopen(url)
     data = json.load(json_obj)
-    critic = data['movies'][0]['ratings']['critics_score']
-    audience = data['movies'][0]['ratings']['audience_score']
-    synopsis = data['movies'][0]['synopsis']
-    poster = data['movies'][0]['posters']['profile']
-    release_date = data['movies'][0]['release_dates']['theater']
-    cast = ''
-    for item in data['movies'][0]['abridged_cast']:
-        cast = cast + item['name'] + ', '
-    cast = cast[:-1]    
-    movie = query
-    return render_template("results.html",critic=critic,audience=audience,synopsis=synopsis,poster=poster,release_date=release_date,cast=cast,movie=movie)
-
+    try:
+        critic = data['movies'][0]['ratings']['critics_score']
+        audience = data['movies'][0]['ratings']['audience_score']
+        synopsis = data['movies'][0]['synopsis']
+        poster = data['movies'][0]['posters']['profile']
+        release_date = data['movies'][0]['release_dates']['theater']
+        cast = ''
+        for item in data['movies'][0]['abridged_cast']:
+            cast = cast + item['name'] + ', '
+        cast = cast[:-1]    
+        movie = query
+        return render_template("results.html",critic=critic,audience=audience,synopsis=synopsis,poster=poster,release_date=release_date,cast=cast,movie=movie)
+    except IndexError:
+        return "<h1> NOT A VALID MOVIE NAME </h1>"
 
 
 if __name__=="__main__":
