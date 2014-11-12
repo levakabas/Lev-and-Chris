@@ -13,13 +13,14 @@ def tomatoe_search(query):
 	json_obj = urllib2.urlopen(url)
 	data = json.load(json_obj)
 	critic = data['movies'][0]['ratings']['critics_score']
+	audience = data['movies'][0]['ratings']['audience_score']
 	synopsis = data['movies'][0]['synopsis']
 	poster = data['movies'][0]['posters']['profile']
 	release_date = data['movies'][0]['release_dates']['theater']
 	cast = ''
 	for item in data['movies'][0]['abridged_cast']:
 		cast = cast + item['name'] + ' '
-	print critic, synopsis, poster, release_date, cast
+	print critic, audience, synopsis, poster, release_date, cast
 
 tomatoe_search('Skyfall')
 
