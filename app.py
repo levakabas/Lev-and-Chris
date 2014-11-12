@@ -32,7 +32,9 @@ def results():
     release_date = data['movies'][0]['release_dates']['theater']
     cast = ''
     for item in data['movies'][0]['abridged_cast']:
-        cast = cast + item['name'] + ' '
+        cast = cast + item['name'] + ', '
+    cast = cast[:-1]    
+    movie = query
     return render_template("results.html",critic=critic,audience=audience,synopsis=synopsis,poster=poster,release_date=release_date,cast=cast,movie=movie)
 
 
